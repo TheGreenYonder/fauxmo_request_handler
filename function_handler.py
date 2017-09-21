@@ -21,9 +21,7 @@ class Handler():
     def read_data(self, socket_accept):
         #safe and decode incoming data
         self.clientsocket, self.address = socket_accept
-
-        tmp = self.clientsocket.recv(1024)
-        self.inc_data = tmp.decode('utf-8')
+        self.inc_data = (self.clientsocket.recv(1024)).decode('utf-8')
 
         logging.info("[READ_DATA]\nConnected to: " + str(self.address[0]) + ":" + str(self.address[1]) + "\n" + self.inc_data + "\n")
 
