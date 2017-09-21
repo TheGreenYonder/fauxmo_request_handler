@@ -14,7 +14,7 @@
                     "off_data": {"state":"1"},
                     "method": "GET",
                     "name": "Kamera Position Eins",
-                    "headers": {"device":"cam1", "identifier":"one"}
+                    "headers": {"device":"cam", "identifier":"one"}
                 },
                 {
                     "port": 12341,
@@ -24,7 +24,7 @@
                     "off_data": {"state":"2"},
                     "method": "GET",
                     "name": "Kamera Position Zwei",
-                    "headers": {"device":"cam1", "identifier":"one"}
+                    "headers": {"device":"cam", "identifier":"one"}
                 },
                 {
                     "port": 12342,
@@ -34,7 +34,7 @@
                     "off_data": {"state":"3"},
                     "method": "GET",
                     "name": "Kamera Position Drei",
-                    "headers": {"device":"cam1", "identifier":"one"}
+                    "headers": {"device":"cam", "identifier":"one"}
                 },
                 {
                     "port": 12343,
@@ -44,7 +44,7 @@
                     "off_data": {"state":"4"},
                     "method": "GET",
                     "name": "Kamera Position Vier",
-                    "headers": {"device":"cam1", "identifier":"one"}
+                    "headers": {"device":"cam", "identifier":"one"}
                 },
                 {
                     "port": 12344,
@@ -84,6 +84,36 @@
                     "off_data": {"state":"ton-aus"},
                     "method": "GET",
                     "name": "Lautsprecher",
+                    "headers": {"device":"tv", "identifier":"renkforce"}
+                },
+                {
+                    "port": 12348,
+                    "on_cmd": "http://127.0.0.1:8000",
+                    "off_cmd": "http://127.0.0.1:8000",
+                    "on_data": {"state":"kanal-1"}, 
+                    "off_data": {"state":"kanal-1"},
+                    "method": "GET",
+                    "name": "Sender ARD",
+                    "headers": {"device":"tv", "identifier":"renkforce"}
+                },
+                {
+                    "port": 12349,
+                    "on_cmd": "http://127.0.0.1:8000",
+                    "off_cmd": "http://127.0.0.1:8000",
+                    "on_data": {"state":"kanal-2"}, 
+                    "off_data": {"state":"kanal-2"},
+                    "method": "GET",
+                    "name": "Sender ZDF",
+                    "headers": {"device":"tv", "identifier":"renkforce"}
+                },
+                {
+                    "port": 12350,
+                    "on_cmd": "http://127.0.0.1:8000",
+                    "off_cmd": "http://127.0.0.1:8000",
+                    "on_data": {"state":"kanal-6"}, 
+                    "off_data": {"state":"kanal-6"},
+                    "method": "GET",
+                    "name": "Sender Sat Eins",
                     "headers": {"device":"tv", "identifier":"renkforce"}
                 }
             ]
