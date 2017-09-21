@@ -27,7 +27,7 @@ class Handler():
 
         try:
             #get information from the requests header and data
-            self.device = (re.search(r"device: (\w\d+)", self.inc_data)).group(1)
+            self.device = (re.search(r"device: (\w+)", self.inc_data)).group(1)
             self.identifier = (re.search(r"identifier: ([\w\d-]+)", self.inc_data)).group(1)
             self.state = (re.search(r"state=([\w\d-]+)", self.inc_data)).group(1)
             logging.info("[READ_DATA]\nDevice: " + self.device + "\nState: " + self.state + "\nIdentifier: " + self.identifier + "\n")
