@@ -49,7 +49,7 @@ class Handler():
             elif self.device.lower() == "tv":
                 #since the tv-remote is only used to turn the tv itself on/off and everything else is controlled through the receiver, the tv won't get its own if branch
                 requests.get(self.tv_rcv_url.format(self.identifier, self.state), timeout=5)
-                if self.state == "power-on":
+                if self.state.lower() == "power-on":
                     requests.get(self.tv_rcv_url.format("toshiba", self.state), timeout=5)
 
             elif self.device.lower() == "mediola":
