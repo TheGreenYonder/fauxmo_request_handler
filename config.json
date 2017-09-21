@@ -1,0 +1,92 @@
+{
+    "FAUXMO": {
+        "ip_address": "auto"
+    },
+    "PLUGINS": {
+        "RESTAPIPlugin": {
+	    "path": "/home/pi/Dev/fauxmo/src/fauxmo/plugins/restapiplugin.py",
+            "DEVICES": [
+                {
+                    "port": 12340,
+                    "on_cmd": "http://localhost:8000",
+                    "off_cmd": "http://localhost:8000",
+                    "on_data": {"state":"1"}, 
+                    "off_data": {"state":"1"},
+                    "method": "GET",
+                    "name": "Kamera Position Eins",
+                    "headers": {"device":"cam1", "identifier":"one"}
+                },
+                {
+                    "port": 12341,
+                    "on_cmd": "http://127.0.0.1:8000",
+                    "off_cmd": "http://127.0.0.1:8000",
+                    "on_data": {"state":"2"}, 
+                    "off_data": {"state":"2"},
+                    "method": "GET",
+                    "name": "Kamera Position Zwei",
+                    "headers": {"device":"cam1", "identifier":"one"}
+                },
+                {
+                    "port": 12342,
+                    "on_cmd": "http://localhost:8000",
+                    "off_cmd": "http://localhost:8000",
+                    "on_data": {"state":"3"}, 
+                    "off_data": {"state":"3"},
+                    "method": "GET",
+                    "name": "Kamera Position Drei",
+                    "headers": {"device":"cam1", "identifier":"one"}
+                },
+                {
+                    "port": 12343,
+                    "on_cmd": "http://localhost:8000",
+                    "off_cmd": "http://localhost:8000",
+                    "on_data": {"state":"4"}, 
+                    "off_data": {"state":"4"},
+                    "method": "GET",
+                    "name": "Kamera Position Vier",
+                    "headers": {"device":"cam1", "identifier":"one"}
+                },
+                {
+                    "port": 12344,
+                    "on_cmd": "http://127.0.0.1:8000",
+                    "off_cmd": "http://127.0.0.1:8000",
+                    "on_data": {"state":"01"}, 
+                    "off_data": {"state":"02"},
+                    "method": "GET",
+                    "name": "Ventilator",
+                    "headers": {"device":"mediola", "identifier":"13BE9A01"}
+                },
+                {
+                    "port": 12345,
+                    "on_cmd": "http://127.0.0.1:8000",
+                    "off_cmd": "http://127.0.0.1:8000",
+                    "on_data": {"state":"01"}, 
+                    "off_data": {"state":"02"},
+                    "method": "GET",
+                    "name": "Licht",
+                    "headers": {"device":"mediola", "identifier":"130A6A01"}
+                },
+                {
+                    "port": 12346,
+                    "on_cmd": "http://127.0.0.1:8000",
+                    "off_cmd": "http://127.0.0.1:8000",
+                    "on_data": {"state":"power-on"}, 
+                    "off_data": {"state":"power-on"},
+                    "method": "GET",
+                    "name": "Fernseher",
+                    "headers": {"device":"tv", "identifier":"renkforce"}
+                },
+                {
+                    "port": 12347,
+                    "on_cmd": "http://127.0.0.1:8000",
+                    "off_cmd": "http://127.0.0.1:8000",
+                    "on_data": {"state":"ton-aus"}, 
+                    "off_data": {"state":"ton-aus"},
+                    "method": "GET",
+                    "name": "Lautsprecher",
+                    "headers": {"device":"tv", "identifier":"renkforce"}
+                }
+            ]
+        }
+    }
+}
