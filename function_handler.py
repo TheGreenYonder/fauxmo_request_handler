@@ -48,7 +48,7 @@ class Handler():
             requests.get(url.format(id = self.identifier, state = self.state), timeout=5)
 
             #if receiver is powering on, TV itself should power on too
-            if (self.device == tv) and (self.state == "power-on"):
+            if (self.device == "tv") and (self.state == "power-on"):
                 requests.get(url.format(id = "toshiba", state = self.state), timeout=5)
 
         except Exception:
