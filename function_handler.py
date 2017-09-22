@@ -13,9 +13,9 @@ class Handler():
         self.device = None
         self.identifier = None
         self.state = None
-        self.cam1_url = "http://192.168.98.101/cgi-bin/hi3510/ptzgotopoint.cgi?&-chn=0&-point={}"
-        self.tv_rcv_url = "http://192.168.98.76/send.htm?remote={}&command={}"
-        self.mediola_url = "http://192.168.98.75/command?XC_FNC=SendSC&type=HM&data={}{}"
+        self.url_dict = {"camone" : "http://192.168.98.101/cgi-bin/hi3510/ptzgotopoint.cgi?&-chn=0&-point={state}",
+			"tv" : "http://192.168.98.76/send.htm?remote={id}&command={state}",
+			"mediola" : "http://192.168.98.75/command?XC_FNC=SendSC&type=HM&data={id}{state}"}
 
 
     def read_data(self, socket_accept):
@@ -26,40 +26,34 @@ class Handler():
         logging.info("[READ_DATA]\nConnected to: " + str(self.address[0]) + ":" + str(self.address[1]) + "\n" + self.inc_data + "\n")
 
         try:
-            #get information from the requests header and data
-            self.device = (re.search(r"device: (\w+)", self.inc_data)).group(1)
-            self.identifier = (re.search(r"identifier: ([\w\d-]+)", self.inc_data)).group(1)
-            self.state = (re.search(r"state=([\w\d-]+)", self.inc_data)).group(1)
+            #get information from the requests header and data and make it lowercase
+            self.device = ((re.search(r"device: (\w+)", self.inc_data)).group(1)).lower()
+            self.identifier = ((re.search(r"identifier: ([\w\d-]+)", self.inc_data)).group(1)).lower()
+            self.state = ((re.search(r"state=([\w\d-]+)", self.inc_data)).group(1)).lower()
+
             logging.info("[READ_DATA]\nDevice: " + self.device + "\nState: " + self.state + "\nIdentifier: " + self.identifier + "\n")
+
+            return self.url_dict[self.device]
 
         except Exception:
             logging.warning("[READ_DATA]\nSomething went wrong with regex, go and fix it\n")
 
 
-    def make_request(self):
+    def make_request(self, url):
         #send response to fauxmo, this way Alexa will answer with "OK"
         self.clientsocket.send(b"HTTP/1.1 200 OK\nContent-type: text/html\n\n")
 
-        #let's wrap it in one big try catch
+        #make request to the device
         try:
-            #make lowercase just for some failproofing
-            if self.device.lower() + self.identifier.lower() == "camone":
-                requests.get(self.cam1_url.format(self.state), timeout=5)
+            requests.get(url.format(id = self.identifier, state = self.state), timeout=5)
 
-            elif self.device.lower() == "tv":
-                #since the tv-remote is only used to turn the tv itself on/off and everything else is controlled through the receiver, the tv won't get its own if branch
-                requests.get(self.tv_rcv_url.format(self.identifier, self.state), timeout=5)
-                if self.state.lower() == "power-on":
-                    requests.get(self.tv_rcv_url.format("toshiba", self.state), timeout=5)
-
-            elif self.device.lower() == "mediola":
-                requests.get(self.mediola_url.format(self.identifier, self.state), timeout=5)
-
-            else:
-                logging.debug("[CALL_FUNCTION]\nunknown device / command, check listener.py / config.json / fauxmo.py\n")
+            #if receiver is powering on, TV itself should power on too
+            if (self.device == tv) && (self.state == "power-on"):
+                requests.get(url.format(id = "toshiba", state = self.state), timeout=5)
 
         except Exception:
-            logging.warning("[CALL_FUNCTION]\nSomething went wrong while handling the request\n")
+            #sadly, digitus cam does never answer to requests even if they accept it, therefore requests to the cam will always throw an exception
+            logging.warning("[CALL_FUNCTION]\nSomething went wrong while handling the request\nRequests to cam will always throw an exception even when there is no error\n")
 
         #close client connection when all is done
         #should never fail to close but better safe than sorry, try catch
