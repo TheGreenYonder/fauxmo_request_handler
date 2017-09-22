@@ -28,7 +28,7 @@ class Handler():
         try:
             #get information from the requests header and data and make it lowercase
             self.device = ((re.search(r"device: (\w+)", self.inc_data)).group(1)).lower()
-            self.identifier = ((re.search(r"identifier: ([\w\d-]+)", self.inc_data)).group(1)).lower()
+            self.identifier = ((re.search(r"identifier: (\w+)", self.inc_data)).group(1)).lower()
             self.state = ((re.search(r"state=([\w\d-]+)", self.inc_data)).group(1)).lower()
 
             logging.info("[READ_DATA]\nDevice: " + self.device + "\nState: " + self.state + "\nIdentifier: " + self.identifier + "\n")
