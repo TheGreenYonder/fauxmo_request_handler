@@ -14,7 +14,7 @@
                     "off_data": {"state":"1"},
                     "method": "GET",
                     "name": "Kamera Position Eins",
-                    "headers": {"device":"cam", "identifier":"one"}
+                    "headers": {"device":"camone", "identifier":"one"}
                 },
                 {
                     "port": 12341,
@@ -24,7 +24,7 @@
                     "off_data": {"state":"2"},
                     "method": "GET",
                     "name": "Kamera Position Zwei",
-                    "headers": {"device":"cam", "identifier":"one"}
+                    "headers": {"device":"camone", "identifier":"one"}
                 },
                 {
                     "port": 12342,
@@ -34,7 +34,7 @@
                     "off_data": {"state":"3"},
                     "method": "GET",
                     "name": "Kamera Position Drei",
-                    "headers": {"device":"cam", "identifier":"one"}
+                    "headers": {"device":"camone", "identifier":"one"}
                 },
                 {
                     "port": 12343,
@@ -44,7 +44,7 @@
                     "off_data": {"state":"4"},
                     "method": "GET",
                     "name": "Kamera Position Vier",
-                    "headers": {"device":"cam", "identifier":"one"}
+                    "headers": {"device":"camone", "identifier":"one"}
                 },
                 {
                     "port": 12344,
