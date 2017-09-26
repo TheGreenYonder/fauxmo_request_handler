@@ -19,25 +19,31 @@ class Handler():
 
 
     def read_data(self, socket_accept):
-        #safe and decode incoming data
+        #safe and decode incoming data, make lowercase
         self.clientsocket, self.address = socket_accept
-        self.inc_data = (self.clientsocket.recv(1024)).decode('utf-8')
+        self.inc_data = self.clientsocket.recv(1024).decode('utf-8').lower()
+
+        #sometimes the data received is not complete and "data" will be sent in a second message
+        #obviously, if "state" is simply missing because of a config mistake
+        #then this part will make listener have a hang-up
+        if re.search(r"state=([\w\d-]+)", self.inc_data) is None:
+            self.inc_data = self.inc_data + self.clientsocket.recv(1024).decode('utf-8').lower()
 
         logging.info("[READ_DATA]\nConnected to: " + str(self.address[0]) + ":" + str(self.address[1]) + "\n" + self.inc_data + "\n")
 
         try:
-            #get information from the requests header and data and make it lowercase
-            self.device = ((re.search(r"device: (\w+)", self.inc_data)).group(1)).lower()
-            self.identifier = ((re.search(r"identifier: (\w+)", self.inc_data)).group(1)).lower()
-            self.state = ((re.search(r"state=([\w\d-]+)", self.inc_data)).group(1)).lower()
+            #get information from the requests header
+            self.device = re.search(r"device: (\w+)", self.inc_data).group(1)
+            self.identifier = re.search(r"identifier: (\w+)", self.inc_data).group(1)
+            self.state = re.search(r"state=([\w\d-]+)", self.inc_data).group(1)
 
             logging.info("[READ_DATA]\nDevice: " + self.device + "\nState: " + self.state + "\nIdentifier: " + self.identifier + "\n")
 
             return self.url_dict[self.device]
 
-        except Exception:
-            logging.warning("[READ_DATA]\nSomething went wrong with regex, go and fix it\n")
-
+        except:
+            logging.exception("[READ_DATA]\nSomething went wrong with regex, go and fix it\n")
+            print("\n")
 
     def make_request(self, url):
         #send response to fauxmo, this way Alexa will answer with "OK"
@@ -51,7 +57,7 @@ class Handler():
             if (self.device == "tv") and (self.state == "power-on"):
                 requests.get(url.format(id = "toshiba", state = self.state), timeout=5)
 
-        except Exception:
+        except:
             #sadly, digitus cam does never answer to requests even if they accept it, therefore requests to the cam will always throw an exception
             logging.warning("[CALL_FUNCTION]\nSomething went wrong while handling the request\nRequests to cam will always throw an exception even when there is no error\n")
 
@@ -60,4 +66,5 @@ class Handler():
         try:
             self.clientsocket.close()
         except:
-            logging.warning("[CALL_FUNCTION]\nSomething went wrong while closing the clientsocket\n")
+            logging.exception("[CALL_FUNCTION]\nSomething went wrong while closing the clientsocket\n")
+            print("\n")
