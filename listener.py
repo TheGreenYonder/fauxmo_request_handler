@@ -4,8 +4,8 @@ import logging
 from function_handler import Handler
 
 
-#level NOTSET will print everything, CRITICAL will print nothing
-logging.basicConfig(level=logging.NOTSET)
+#lower level will print more (see python logging)
+logging.basicConfig(level=100)
 
 #create socket, bind to 0.0.0.0:8000
 #start listening(up to 5 concurrent connections)
@@ -18,7 +18,7 @@ my_handler = Handler()
 logging.info("[MAIN]\nBinding on all interfaces on port 8000\nObject initialized\nWaiting for connection...\n")
 
 loop = True
-#Loop keeps Listener alive
+#Loop re-arms listener every time
 while loop:
 
     #get the desired url from read_data, give it to make_request
@@ -32,4 +32,5 @@ while loop:
         loop = False
         logging.info("[MAIN]\nKeyboardInterrupt - Server shutting down\n")
     except:
-        logging.warning("Seems like something else went wrong\n")
+        logging.exception("Seems like something else went wrong\n")
+        print("\n")
