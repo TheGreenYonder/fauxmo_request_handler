@@ -3,16 +3,15 @@
         "ip_address": "auto"
     },
     "PLUGINS": {
-        "RESTAPIPlugin": {
-	    "path": "/home/pi/Dev/fauxmo/src/fauxmo/plugins/restapiplugin.py",
-            "DEVICES": [
+        "SimpleHTTPPlugin": {
+	    "DEVICES": [
                 {
                     "port": 12340,
                     "on_cmd": "http://localhost:8000",
                     "off_cmd": "http://localhost:8000",
-                    "on_data": {"state":"1"}, 
+                    "on_data": {"state":"1"},
                     "off_data": {"state":"1"},
-                    "method": "GET",
+                    "method": "POST",
                     "name": "Kamera Position Eins",
                     "headers": {"device":"camone", "identifier":"one"}
                 },
@@ -20,9 +19,9 @@
                     "port": 12341,
                     "on_cmd": "http://127.0.0.1:8000",
                     "off_cmd": "http://127.0.0.1:8000",
-                    "on_data": {"state":"2"}, 
+                    "on_data": {"state":"2"},
                     "off_data": {"state":"2"},
-                    "method": "GET",
+                    "method": "POST",
                     "name": "Kamera Position Zwei",
                     "headers": {"device":"camone", "identifier":"one"}
                 },
@@ -30,9 +29,9 @@
                     "port": 12342,
                     "on_cmd": "http://localhost:8000",
                     "off_cmd": "http://localhost:8000",
-                    "on_data": {"state":"3"}, 
+                    "on_data": {"state":"3"},
                     "off_data": {"state":"3"},
-                    "method": "GET",
+                    "method": "POST",
                     "name": "Kamera Position Drei",
                     "headers": {"device":"camone", "identifier":"one"}
                 },
@@ -40,9 +39,9 @@
                     "port": 12343,
                     "on_cmd": "http://localhost:8000",
                     "off_cmd": "http://localhost:8000",
-                    "on_data": {"state":"4"}, 
+                    "on_data": {"state":"4"},
                     "off_data": {"state":"4"},
-                    "method": "GET",
+                    "method": "POST",
                     "name": "Kamera Position Vier",
                     "headers": {"device":"camone", "identifier":"one"}
                 },
@@ -50,9 +49,9 @@
                     "port": 12344,
                     "on_cmd": "http://127.0.0.1:8000",
                     "off_cmd": "http://127.0.0.1:8000",
-                    "on_data": {"state":"01"}, 
+                    "on_data": {"state":"01"},
                     "off_data": {"state":"02"},
-                    "method": "GET",
+                    "method": "POST",
                     "name": "Ventilator",
                     "headers": {"device":"mediola", "identifier":"13BE9A01"}
                 },
@@ -60,9 +59,9 @@
                     "port": 12345,
                     "on_cmd": "http://127.0.0.1:8000",
                     "off_cmd": "http://127.0.0.1:8000",
-                    "on_data": {"state":"01"}, 
+                    "on_data": {"state":"01"},
                     "off_data": {"state":"02"},
-                    "method": "GET",
+                    "method": "POST",
                     "name": "Licht",
                     "headers": {"device":"mediola", "identifier":"130A6A01"}
                 },
@@ -70,9 +69,9 @@
                     "port": 12346,
                     "on_cmd": "http://127.0.0.1:8000",
                     "off_cmd": "http://127.0.0.1:8000",
-                    "on_data": {"state":"power-on"}, 
+                    "on_data": {"state":"power-on"},
                     "off_data": {"state":"power-on"},
-                    "method": "GET",
+                    "method": "POST",
                     "name": "Fernseher",
                     "headers": {"device":"tv", "identifier":"renkforce"}
                 },
@@ -80,9 +79,9 @@
                     "port": 12347,
                     "on_cmd": "http://127.0.0.1:8000",
                     "off_cmd": "http://127.0.0.1:8000",
-                    "on_data": {"state":"ton-aus"}, 
+                    "on_data": {"state":"ton-aus"},
                     "off_data": {"state":"ton-aus"},
-                    "method": "GET",
+                    "method": "POST",
                     "name": "Lautsprecher",
                     "headers": {"device":"tv", "identifier":"renkforce"}
                 },
@@ -90,9 +89,9 @@
                     "port": 12348,
                     "on_cmd": "http://127.0.0.1:8000",
                     "off_cmd": "http://127.0.0.1:8000",
-                    "on_data": {"state":"kanal-1"}, 
+                    "on_data": {"state":"kanal-1"},
                     "off_data": {"state":"kanal-1"},
-                    "method": "GET",
+                    "method": "POST",
                     "name": "Sender ARD",
                     "headers": {"device":"tv", "identifier":"renkforce"}
                 },
@@ -100,9 +99,9 @@
                     "port": 12349,
                     "on_cmd": "http://127.0.0.1:8000",
                     "off_cmd": "http://127.0.0.1:8000",
-                    "on_data": {"state":"kanal-2"}, 
+                    "on_data": {"state":"kanal-2"},
                     "off_data": {"state":"kanal-2"},
-                    "method": "GET",
+                    "method": "POST",
                     "name": "Sender ZDF",
                     "headers": {"device":"tv", "identifier":"renkforce"}
                 },
@@ -110,9 +109,9 @@
                     "port": 12350,
                     "on_cmd": "http://127.0.0.1:8000",
                     "off_cmd": "http://127.0.0.1:8000",
-                    "on_data": {"state":"kanal-6"}, 
+                    "on_data": {"state":"kanal-6"},
                     "off_data": {"state":"kanal-6"},
-                    "method": "GET",
+                    "method": "POST",
                     "name": "Sender Sat Eins",
                     "headers": {"device":"tv", "identifier":"renkforce"}
                 }
