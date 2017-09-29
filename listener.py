@@ -5,7 +5,7 @@ from function_handler import Handler
 
 
 #lower level will print more (see python logging)
-logging.basicConfig(level=100)
+logging.basicConfig(level=0)
 
 #create socket, bind to 0.0.0.0:8000
 #start listening(up to 5 concurrent connections)
@@ -23,8 +23,8 @@ while loop:
 
     #get the desired url from read_data, give it to make_request
     try:
-        url = my_handler.read_data(s.accept())
-        my_handler.make_request(url)
+        my_handler.read_data(s.accept())
+        my_handler.make_request()
         logging.info("[MAIN]\nWaiting for new connection...\n")
     except KeyboardInterrupt:
         #when interrupting while testing, the socket will live for another few seconds - minutes, so let's catch it
