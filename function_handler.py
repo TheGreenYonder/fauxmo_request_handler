@@ -13,7 +13,7 @@ class Handler():
         self.device = None
         self.identifier = None
         self.state = None
-        self.url_dict = {"camone" : "http://192.168.98.101/cgi-bin/hi3510/ptzgotopoint.cgi?&-chn=0&-point={state}",
+        self.url_dict = {"cam" : ["http://192.168.98.124/cgi-bin/hi3510/ptzgotopoint.cgi?&-chn=0&-point={state}", "http://192.168.98.123/cgi-bin/hi3510/ptzgotopoint.cgi?&-chn=0&-point={state}"],
 			"tv" : "http://192.168.98.76/send.htm?remote={id}&command={state}",
 			"mediola" : "http://192.168.98.75/command?XC_FNC=SendSC&type=HM&data={id}{state}"}
 
@@ -39,27 +39,33 @@ class Handler():
 
             logging.info("[READ_DATA]\nDevice: " + self.device + "\nState: " + self.state + "\nIdentifier: " + self.identifier + "\n")
 
-            return self.url_dict[self.device]
-
         except:
             logging.exception("[READ_DATA]\nSomething went wrong with regex, go and fix it\n")
             print("\n")
 
-    def make_request(self, url):
+    def make_request(self):
         #send response to fauxmo, this way Alexa will answer with "OK"
         self.clientsocket.send(b"HTTP/1.1 200 OK\nContent-type: text/html\n\n")
 
-        #make request to the device
+        #make request to all cams
         try:
-            requests.get(url.format(id = self.identifier, state = self.state), timeout=5)
+            if self.device == "cam":
+                for url in self.url_dict[self.device]:
+                    try:
+                        requests.get(url.format(state = self.state), timeout=5)
+                    except:
+                        logging.info("[CALL_FUNCTION]\nIP-CAM always throws exception\n")
+
+            else:
+                requests.get(self.url_dict[self.device].format(id = self.identifier, state = self.state), timeout=5)
 
             #if receiver is powering on, TV itself should power on too
             if (self.device == "tv") and (self.state == "power-on"):
-                requests.get(url.format(id = "toshiba", state = self.state), timeout=5)
+                requests.get(self.url_dict[self.device].format(id = "toshiba", state = self.state), timeout=5)
 
         except:
             #sadly, digitus cam does never answer to requests even if they accept it, therefore requests to the cam will always throw an exception
-            logging.warning("[CALL_FUNCTION]\nSomething went wrong while handling the request\nRequests to cam will always throw an exception even when there is no error\n")
+            logging.warning("[CALL_FUNCTION]\nSomething went wrong while handling the request\n")
 
         #close client connection when all is done
         #should never fail to close but better safe than sorry, try catch
